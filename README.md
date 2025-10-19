@@ -4,6 +4,9 @@ Self-supervised xray threat localization
 
 ![alt text](https://github.com/yonathan-kiflom/X-SSL/blob/main/assets/Architecture.png)
 
+[![Paper](https://img.shields.io/badge/Paper-arXiv%3A2501.12345-b31b1b.svg)]([https://arxiv.org/abs/2501.12345](https://www.sciencedirect.com/science/article/pii/S0306457325002808))
+
+
 **Code will be published soon!!**
 
 ## 📄 Citation
