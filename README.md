@@ -26,7 +26,7 @@ Self-supervised xray threat localization
 - PyTorch >= 2.1
 
 ## Installation
-See [Installation instructions](INSTALL.md).
+See [Installation instructions](https://github.com/facebookresearch/CutLER/blob/cca0a270cf68399efc8fd50df426b6d806e39416/INSTALL.md).
 
 
 
