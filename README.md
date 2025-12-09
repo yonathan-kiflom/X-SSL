@@ -9,31 +9,37 @@ Self-supervised xray threat localization
 **X-SSL** is a self-supervised framework that learns from unlabeled X-ray scans to localize threats, combining zero-shot region proposals, multi-modal clustering, and knowledge distillation.
 
 ## Table of Contents
-- [Overview](#overview)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Model Zoo](#model-zoo)
-- [Data Preparation](#data-preparation)
+- [Datasets](#dataset)
 - [Training](#training)
-- [Inference](#inference)
+- [Evaluation](#evaluation)
 - [Results](#results)
 - [Citation](#citation)
-- [License](#license)
-- 
+ 
 ## Requirements
-- Python >= 3.9
+- Python >= 3.8
 - CUDA >= 11.8 
-- PyTorch >= 2.1
+- PyTorch >= 1.8
 
 ## Installation
-See [Installation instructions](https://github.com/facebookresearch/CutLER/blob/cca0a270cf68399efc8fd50df426b6d806e39416/INSTALL.md).
+See Cutler [Installation instructions](https://github.com/facebookresearch/CutLER/blob/cca0a270cf68399efc8fd50df426b6d806e39416/INSTALL.md).
 
 
 
 ## Model zoo
 
 
-**Code will be published soon!!**
+## Datasets
+
+
+## Training
+
+
+## Evaluation
+
+
 
 ## 📄 Citation
 
