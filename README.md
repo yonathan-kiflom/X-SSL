@@ -26,9 +26,10 @@ Self-supervised xray threat localization
 - PyTorch >= 2.1
 
 ## Installation
-``
+```
 git clone https://github.com/yonathan-kiflom/X-SSL.git
 cd x-ssl
+```
 
 
 ## Model zoo
