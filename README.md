@@ -6,6 +6,16 @@ Self-supervised xray threat localization
 
 [![Paper](https://img.shields.io/badge/Paper-Elsevier-orange.svg)](https://www.sciencedirect.com/science/article/pii/S0306457325002808)
 
+**X-SSL** is a self-supervised framework that learns from unlabeled X-ray scans to localize threats, combining zero-shot region proposals, multi-modal clustering, and knowledge distillation.
+
+## Requirements
+- Python >= 3.9
+- CUDA >= 11.8 
+- PyTorch >= 2.1
+
+## Installation
+
+
 
 **Code will be published soon!!**
 
