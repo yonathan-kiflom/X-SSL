@@ -27,6 +27,7 @@ Self-supervised xray threat localization
 
 ## Installation
 '''bash
+git clone https://github.com/yonathan-kiflom/X-SSL.git
 
 
 **Code will be published soon!!**
