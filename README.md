@@ -26,7 +26,7 @@ Self-supervised xray threat localization
 - PyTorch >= 2.1
 
 ## Installation
-
+'''bash
 
 
 **Code will be published soon!!**
