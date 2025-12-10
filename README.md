@@ -16,6 +16,7 @@ Self-supervised xray threat localization
 - [Training](#training)
 - [Evaluation](#evaluation)
 - [Results](#results)
+- [Acknowledgement](#Acknowledgement)
 - [Citation](#citation)
  
 ## Requirements
@@ -223,6 +224,7 @@ Adopt your choice of ViT based evaluation model for downstream task and replace 
 </table>
 
 
+## Acknowledgement
 
 
 ## 📄 Citation
