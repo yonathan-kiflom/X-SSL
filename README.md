@@ -40,7 +40,7 @@ All datasets used in this paper can be accessed here:
 
 
 ## Evaluation
-
+Adopt your choice of ViT based evaluation model for downstream task and replace the backbone with your finetuned model.
 
 
 ## 📄 Citation
