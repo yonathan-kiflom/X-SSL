@@ -224,8 +224,8 @@ Adopt your choice of ViT based evaluation model for downstream task and replace 
 </table>
 
 
-## Acknowledgement
-
+## 🙏 Acknowledgement
+We would like to thank [Cutler](https://github.com/facebookresearch/CutLER) and [Dino](https://github.com/facebookresearch/dino) for their valuable contribution to the community.
 
 ## 📄 Citation
 
