@@ -154,13 +154,13 @@ Adopt your choice of ViT based evaluation model for downstream task and replace 
     <tr>
       <th rowspan="3">Model</th>
       <th colspan="12">PIDray</th>
-      <th colspan="4">CLCxray (Overall)</th>
+      <th colspan="4">CLCxray</th>
     </tr>
     <tr>
       <th colspan="4">Easy</th>
       <th colspan="4">Hard</th>
       <th colspan="4">Hidden</th>
-      <th colspan="4">Overall</th>
+      <th colspan="4">-</th>
     </tr>
     <tr>
       <th>Acc</th><th>Pre</th><th>Rec</th><th>F1</th>
