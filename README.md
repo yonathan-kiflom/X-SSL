@@ -148,6 +148,81 @@ Adopt your choice of ViT based evaluation model for downstream task and replace 
   </tbody>
 </table>
 
+### Classification
+<table>
+  <thead>
+    <tr>
+      <th rowspan="3">Model</th>
+      <th colspan="12">PIDray</th>
+      <th colspan="4">CLCxray (Overall)</th>
+    </tr>
+    <tr>
+      <th colspan="4">Easy</th>
+      <th colspan="4">Hard</th>
+      <th colspan="4">Hidden</th>
+      <th colspan="4">Overall</th>
+    </tr>
+    <tr>
+      <th>Acc</th><th>Pre</th><th>Rec</th><th>F1</th>
+      <th>Acc</th><th>Pre</th><th>Rec</th><th>F1</th>
+      <th>Acc</th><th>Pre</th><th>Rec</th><th>F1</th>
+      <th>Acc</th><th>Pre</th><th>Rec</th><th>F1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ViT-B</strong></td>
+      <td>81.24</td><td>83</td><td>81</td><td>80</td>
+      <td>46.36</td><td>48</td><td>46</td><td>46</td>
+      <td>35.80</td><td>48</td><td>36</td><td>32</td>
+      <td>58.96</td><td>55</td><td>59</td><td>54</td>
+    </tr>
+    <tr>
+      <td><strong>CLIP</strong></td>
+      <td>80.26</td><td>81</td><td>80</td><td>79</td>
+      <td>45.20</td><td>47</td><td>45</td><td>44</td>
+      <td>27.45</td><td>40</td><td>27</td><td>21</td>
+      <td>59.21</td><td>60</td><td>59</td><td>55</td>
+    </tr>
+    <tr>
+      <td><strong>SWIN-B</strong></td>
+      <td>72.52</td><td>72</td><td>73</td><td>70</td>
+      <td>44.75</td><td>47</td><td>45</td><td>43</td>
+      <td>33.83</td><td><strong>54</strong></td><td>34</td><td>29</td>
+      <td>57.83</td><td>50</td><td>58</td><td>52</td>
+    </tr>
+    <tr>
+      <td><strong>PVTv2-b3</strong></td>
+      <td>64.54</td><td>66</td><td>65</td><td>63</td>
+      <td>42.37</td><td>43</td><td>42</td><td>41</td>
+      <td>31.65</td><td>45</td><td>32</td><td>28</td>
+      <td>55.56</td><td>47</td><td>56</td><td>50</td>
+    </tr>
+    <tr>
+      <td><strong>DINO</strong></td>
+      <td>83</td><td>84</td><td>82</td><td>82</td>
+      <td>48</td><td>50</td><td>48</td><td>47</td>
+      <td>36.14</td><td>48</td><td>38</td><td>35</td>
+      <td>60.87</td><td>57</td><td>62</td><td>55</td>
+    </tr>
+    <tr>
+      <td><strong>Ours</strong></td>
+      <td><strong>87</strong></td><td><strong>86</strong></td><td><strong>88</strong></td><td><strong>87</strong></td>
+      <td><strong>55</strong></td><td><strong>53</strong></td><td><strong>54</strong></td><td><strong>53</strong></td>
+      <td><strong>43</strong></td><td>52</td><td><strong>53</strong></td><td><strong>51</strong></td>
+      <td><strong>65</strong></td><td><strong>60</strong></td><td><strong>65</strong></td><td><strong>61</strong></td>
+    </tr>
+    <tr style="background: #f4f7fb;">
+      <td><strong>Improvement</strong></td>
+      <td>+4.0</td><td>+2.0</td><td>+6.0</td><td>+5.0</td>
+      <td>+7.0</td><td>+3.0</td><td>+6.0</td><td>+6.0</td>
+      <td>+6.86</td><td>-2.0</td><td>+15.0</td><td>+16.0</td>
+      <td>+4.13</td><td>+0.0</td><td>+3.0</td><td>+6.0</td>
+    </tr>
+  </tbody>
+</table>
+
+
 
 
 ## 📄 Citation
