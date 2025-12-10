@@ -43,7 +43,7 @@ All datasets used in this paper can be accessed here:
 Adopt your choice of ViT based evaluation model for downstream task and replace the backbone with your finetuned model.
 
 ## Results
-
+# Detection and Segmentation
 <table>
   <thead>
     <tr>
