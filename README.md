@@ -180,7 +180,7 @@ We report quantitative results **object detection**, **instance segmentation** a
   </tbody>
 </table>
 
-### Classification
+### 📌 Classification
 <table>
   <thead>
     <tr>
