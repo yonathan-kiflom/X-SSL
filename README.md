@@ -38,23 +38,33 @@ You can download the official pretrained models from
 After downloading, place the weights under backbone/pretrained_weights.pth
 
 
+## 🧪 Model Zoo
 
-## Model zoo
-To replicate our results model weights are provided [Here](https://kuacae-my.sharepoint.com/:f:/g/personal/100053679_ku_ac_ae/IgB0wpvwneE9T7ioFY71o0DcAQyTvgPn81CtvKMN7CObzGE?e=JQjyeJ)
+Pretrained model weights used to reproduce our results are available here:  
+👉 **[Download model weights](https://kuacae-my.sharepoint.com/:f:/g/personal/100053679_ku_ac_ae/IgB0wpvwneE9T7ioFY71o0DcAQyTvgPn81CtvKMN7CObzGE?e=JQjyeJ)**
 
-## Datasets
-All datasets used in this paper can be accessed here:
-[PIDray](https://github.com/lutao2021/PIDray)
-[CLCxray](https://github.com/GreysonPhoenix/CLCXray)
+## 📊 Datasets
+
+All datasets used in this paper are publicly available:
+
+- **[PIDray](https://github.com/lutao2021/PIDray)**
+- **[CLCXray](https://github.com/GreysonPhoenix/CLCXray)**
 
 ## Training
 
+## 📈 Evaluation
 
-## Evaluation
-Adopt your choice of ViT based evaluation model for downstream task and replace the backbone with your finetuned model.
+For downstream evaluation, you may use any **ViT-based evaluation model** of your choice.  
+Replace the backbone of the evaluation model with your **fine-tuned backbone** from this repository.
 
-## Results
-### Detection and Segmentation
+## 📊 Results
+
+We report quantitative results **object detection**, **instance segmentation** and **classification** tasks.
+
+### 🔍 Detection and Segmentation
+
+
+
 <table>
   <thead>
     <tr>
