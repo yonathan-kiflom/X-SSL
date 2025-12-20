@@ -27,9 +27,17 @@ Self-supervised xray threat localization
 ## Installation
 See Cutler [Installation instructions](https://github.com/facebookresearch/CutLER/blob/cca0a270cf68399efc8fd50df426b6d806e39416/INSTALL.md).
 
-## Pretrained Weights
-All Dino pretrained weights can be downloaded [Here](https://github.com/facebookresearch/dino)
--- Recommendation Put weights under backbone/your_choice_of_backbone.pth
+## 🧠 Pretrained Weights
+
+This project uses **DINO pretrained weights**.
+
+You can download the official pretrained models from  
+👉 **[facebookresearch/dino](https://github.com/facebookresearch/dino)**
+
+### 📁 Where to place the weights
+After downloading, place the weights under backbone/pretrained_weights.pth
+
+
 
 ## Model zoo
 To replicate our results model weights are provided [Here](https://kuacae-my.sharepoint.com/:f:/g/personal/100053679_ku_ac_ae/IgB0wpvwneE9T7ioFY71o0DcAQyTvgPn81CtvKMN7CObzGE?e=JQjyeJ)
