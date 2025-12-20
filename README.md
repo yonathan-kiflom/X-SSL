@@ -30,7 +30,7 @@ See Cutler [Installation instructions](https://github.com/facebookresearch/CutLE
 
 
 ## Model zoo
-
+To replicate our results model weights are provided [Here](https://kuacae-my.sharepoint.com/:f:/g/personal/100053679_ku_ac_ae/IgB0wpvwneE9T7ioFY71o0DcAQyTvgPn81CtvKMN7CObzGE?e=JQjyeJ)
 
 ## Datasets
 All datasets used in this paper can be accessed here:
