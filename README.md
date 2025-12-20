@@ -60,7 +60,7 @@ Run the following command to train the model:
 python main.py train \
   --data-path path/to/your/training/image/directory \
   --cropped-data-path path/to/your/proposals/directory \
-  --output-dir ./output
+  --output-dir ./output ```
 
 
 ## 📈 Evaluation
