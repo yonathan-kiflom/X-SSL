@@ -65,8 +65,8 @@ python main.py train \
 
 ## 📈 Evaluation
 
-For downstream evaluation, you may use any **ViT-based evaluation model** of your choice.  
-Replace the backbone of the evaluation model with your **fine-tuned backbone** from this repository.
+You may use a **ViT-based model** of your choice for any downstream task evaluation.  
+Replace the backbone of the model with your **fine-tuned backbone** after training.
 
 ## 📊 Results
 
