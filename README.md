@@ -50,8 +50,17 @@ All datasets used in this paper are publicly available:
 - **[PIDray](https://github.com/lutao2021/PIDray)**
 - **[CLCXray](https://github.com/GreysonPhoenix/CLCXray)**
 
-## Training
-``` python main.py train --data-path path/to/your/training/image/directory --cropped-data-path path/to/your/proposals/directory --output-dir ./output ```
+
+
+## 🏋️ Training
+
+Run the following command to train the model:
+
+```bash
+python main.py train \
+  --data-path path/to/your/training/image/directory \
+  --cropped-data-path path/to/your/proposals/directory \
+  --output-dir ./output
 
 
 ## 📈 Evaluation
