@@ -6,7 +6,7 @@
 <p align="center">
   <a href="https://www.sciencedirect.com/science/article/pii/S0306457325002808">📄 Paper</a>
   &nbsp;|&nbsp;
-  <a href="https://yonathan-kiflom.github.io/X-SSL/">🌐 Project Page</a>
+  <a href="https://yonathan-kiflom.github.io/X-SSL/page">🌐 Project Page</a>
 </p>
 
 **X-SSL** is a self-supervised framework that learns from unlabeled X-ray scans to localize threats, combining zero-shot region proposals, multi-modal clustering, and knowledge distillation.
