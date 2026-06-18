@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-SSL: Self-supervised X-ray threat detection</title>
+    <meta name="description"
+        content="Project page for X-SSL, a self-supervised X-ray threat detection framework with zero-shot and multi-modal learning.">
+    <link rel="icon" type="image/jpeg" href="assets/lab-logo.jpg">
+    <link rel="apple-touch-icon" href="assets/lab-logo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(18px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fafafa;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(226, 232, 240, 0.82);
+            box-shadow: 0 16px 45px rgba(15, 23, 42, 0.08);
+        }
+
+        .code-block {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        }
+
+        .delay-100 {
+            animation-delay: 100ms;
+        }
+
+        .delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .delay-300 {
+            animation-delay: 300ms;
+        }
+
+        #benchmarks th,
+        #benchmarks td {
+            padding: 0.9rem 0.75rem;
+            white-space: nowrap;
+        }
+
+        #copy-toast.show {
+            display: flex;
+        }
+
+        #lightbox {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #lightbox.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #lightbox-img {
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        #lightbox.open #lightbox-img {
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-sky-200 selection:text-sky-950">
+    <div class="relative overflow-hidden bg-slate-50 border-b border-slate-200">
+        <div class="absolute inset-0 bg-grid-pattern opacity-45"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-slate-50"></div>
+
+        <header
+            class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 text-center opacity-0 animate-fade-in-up">
+            
+
+            <h1
+                class="max-w-5xl mx-auto text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-950 leading-[1.12] mb-6">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-700 via-blue-700 to-slate-900">X-SSL</span><span>:</span>
+                <span class="mt-3 block text-[25px] sm:text-4xl lg:text-5xl leading-tight">
+                    Self-supervised X-ray Threat Detection
+                </span>
+                <span class="block text-[24px] sm:text-3xl lg:text-4xl leading-tight text-slate-800">
+                    with Zero-shot and Multi-modal Learning
+                </span>
+            </h1>
+
+            <!-- <p class="max-w-3xl mx-auto text-slate-600 text-lg leading-relaxed mb-6">
+                A self-supervised framework that learns from unlabeled X-ray scans to localize threats by combining
+                zero-shot proposals, contrastive multi-modal clustering, and teacher-student knowledge distillation.
+            </p> -->
+
+            <div class="flex flex-wrap justify-center gap-x-5 gap-y-2 text-base sm:text-lg font-medium text-slate-700 mb-4">
+                <span>Yonathan Michael</span>
+                <span>Mohamad Alansari</span>
+                <span>Abdelfatah Ahmed</span>
+                <span>Naoufel Werghi</span>
+                <span>Andreas Henschel</span>
+            </div>
+            <div class="text-slate-500 mb-10">Khalifa University, Abu Dhabi, UAE</div>
+            <div
+                class="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-sky-700 bg-sky-50 ring-1 ring-inset ring-sky-700/20 mb-6">
+                Information Processing &amp; Management 2026
+            </div>
+            <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4">
+                <a href="https://www.sciencedirect.com/science/article/pii/S0306457325002808" target="_blank"
+                    rel="noopener"
+                    class="group w-full max-w-[250px] sm:w-auto inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white transition-all duration-200 bg-slate-950 border border-transparent rounded-full hover:bg-slate-800 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-950">
+                    <i data-lucide="file-text" class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform"></i>
+                    Paper
+                </a>
+                <a href="https://github.com/yonathan-kiflom/X-SSL" target="_blank" rel="noopener"
+                    class="group w-full max-w-[250px] sm:w-auto inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-slate-900 transition-all duration-200 bg-white border border-slate-200 rounded-full hover:bg-slate-50 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-200">
+                    <svg class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" viewBox="0 0 24 24"
+                        fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm3.163 21.783h-.093a.513.513 0 0 1-.382-.14.513.513 0 0 1-.14-.372v-1.406c.006-.467.01-.94.01-1.416a3.693 3.693 0 0 0-.151-1.028 1.832 1.832 0 0 0-.542-.875 8.014 8.014 0 0 0 2.038-.471 4.051 4.051 0 0 0 1.466-.964c.407-.427.71-.943.885-1.506a6.77 6.77 0 0 0 .3-2.13 4.138 4.138 0 0 0-.26-1.476 3.892 3.892 0 0 0-.795-1.284 2.81 2.81 0 0 0 .162-.582c.033-.2.05-.402.05-.604 0-.26-.03-.52-.09-.773a5.309 5.309 0 0 0-.221-.763.293.293 0 0 0-.111-.02h-.11c-.23.002-.456.04-.674.111a5.34 5.34 0 0 0-.703.26 6.503 6.503 0 0 0-.661.343c-.215.127-.405.249-.573.362a9.578 9.578 0 0 0-5.143 0 13.507 13.507 0 0 0-.572-.362 6.022 6.022 0 0 0-.672-.342 4.516 4.516 0 0 0-.705-.261 2.203 2.203 0 0 0-.662-.111h-.11a.29.29 0 0 0-.11.02 5.844 5.844 0 0 0-.23.763c-.054.254-.08.513-.081.773 0 .202.017.404.051.604.033.199.086.394.16.582A3.888 3.888 0 0 0 5.702 10a4.142 4.142 0 0 0-.263 1.476 6.871 6.871 0 0 0 .292 2.12c.181.563.483 1.08.884 1.516.415.422.915.75 1.466.964.653.25 1.337.41 2.033.476a1.828 1.828 0 0 0-.452.633 2.99 2.99 0 0 0-.2.744 2.754 2.754 0 0 1-1.175.27 1.788 1.788 0 0 1-1.065-.3 2.904 2.904 0 0 1-.752-.824 3.1 3.1 0 0 0-.292-.382 2.693 2.693 0 0 0-.372-.343 1.841 1.841 0 0 0-.432-.24 1.2 1.2 0 0 0-.481-.101c-.04.001-.08.005-.12.01a.649.649 0 0 0-.162.02.408.408 0 0 0-.13.06.116.116 0 0 0-.06.1.33.33 0 0 0 .14.242c.093.074.17.131.232.171l.03.021c.133.103.261.214.382.333.112.098.213.209.3.33.09.119.168.246.231.381.073.134.15.288.231.463.188.474.522.875.954 1.145.453.243.961.364 1.476.351.174 0 .349-.01.522-.03.172-.028.343-.057.515-.091v1.743a.5.5 0 0 1-.533.521h-.062a10.286 10.286 0 1 1 6.324 0v.005z" />
+                    </svg>
+                    Code
+                </a>
+            </div>
+        </header>
+    </div>
+
+    <main class="w-full max-w-[342px] sm:max-w-5xl mx-auto px-0 sm:px-6 lg:px-8 -mt-8 relative z-10 overflow-hidden">
+        <section id="overview" class="mb-24 opacity-0 animate-fade-in-up delay-100">
+            <div class="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-10 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-sky-500 to-blue-700"></div>
+                <div class="grid lg:grid-cols-[1fr_0.9fr] gap-8 items-center">
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-2 bg-sky-100 rounded-lg text-sky-700">
+                                <i data-lucide="scan-search" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-3xl font-bold text-slate-950 tracking-tight">Overview</h2>
+                        </div>
+                        <p class="text-slate-700 leading-relaxed text-base sm:text-lg">
+                            X-SSL tackles the central bottleneck in X-ray threat detection: learning reliable threat
+                            localization when annotated threat examples are scarce and baggage scans are visually
+                            cluttered. Instead of relying on manual labels, the framework builds pseudo-supervision from
+                            the images themselves. It first discovers object-like regions with MaskCut, then aligns those
+                            regions with text-guided threat concepts through contrastive multimodal clustering, and
+                            finally distills the resulting knowledge into stronger multiscale representations for
+                            detection, segmentation, and classification.
+                        </p>
+                        <div class="mt-6 grid sm:grid-cols-3 gap-3">
+                            <div class="rounded-xl bg-sky-50 p-4 ring-1 ring-inset ring-sky-700/10">
+                                <p class="text-sm font-bold text-sky-800">No manual masks</p>
+                                <p class="text-sm text-slate-600 mt-1">Learns from unlabeled X-ray scans.</p>
+                            </div>
+                            <div class="rounded-xl bg-blue-50 p-4 ring-1 ring-inset ring-blue-700/10">
+                                <p class="text-sm font-bold text-blue-800">Multimodal cues</p>
+                                <p class="text-sm text-slate-600 mt-1">Uses image-text alignment to separate threats.</p>
+                            </div>
+                            <div class="rounded-xl bg-emerald-50 p-4 ring-1 ring-inset ring-emerald-700/10">
+                                <p class="text-sm font-bold text-emerald-800">Downstream gains</p>
+                                <p class="text-sm text-slate-600 mt-1">Improves detection, segmentation, and classification.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl border border-slate-200 bg-white p-3 shadow-xl">
+                        <button type="button"
+                            class="group relative block w-full overflow-hidden rounded-xl bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                            onclick="openLightbox('assets/IntroImagedraft.png', 'X-SSL overview and benchmark summary')"
+                            aria-label="Open X-SSL overview figure">
+                            <img src="assets/IntroImagedraft.png" alt="X-SSL overview and benchmark summary"
+                                class="w-full h-auto max-h-[330px] object-contain transition-transform duration-700 group-hover:scale-[1.02]">
+                            <span
+                                class="absolute right-3 top-3 bg-white/90 text-slate-900 rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                                <i data-lucide="zoom-in" class="w-5 h-5"></i>
+                            </span>
+                        </button>
+                        <div class="grid grid-cols-3 gap-3 text-left">
+                            <div class="rounded-xl bg-sky-50 p-3">
+                                <p class="text-xs font-semibold text-sky-700">PIDray</p>
+                                <p class="text-2xl font-extrabold text-slate-950">&gt;39K</p>
+                                <p class="text-xs text-slate-500">images</p>
+                            </div>
+                            <div class="rounded-xl bg-blue-50 p-3">
+                                <p class="text-xs font-semibold text-blue-700">CLCXray</p>
+                                <p class="text-2xl font-extrabold text-slate-950">&gt;14K</p>
+                                <p class="text-xs text-slate-500">images</p>
+                            </div>
+                            <div class="rounded-xl bg-emerald-50 p-3">
+                                <p class="text-xs font-semibold text-emerald-700">Labels</p>
+                                <p class="text-2xl font-extrabold text-slate-950">0</p>
+                                <p class="text-xs text-slate-500">manual</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="abstract" class="mb-24">
+            <div class="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-10 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-cyan-500 to-blue-700"></div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-2 bg-cyan-100 rounded-lg text-cyan-700">
+                        <i data-lucide="book-open" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-950 tracking-tight">Abstract</h2>
+                </div>
+                <p class="text-slate-700 leading-relaxed text-base sm:text-lg">
+                    Automated X-ray threat detection is challenged by cluttered baggage scans, severe object
+                    occlusions, and the scarcity of annotated datasets. Traditional supervised approaches are
+                    impractical, as they require large amounts of labeled data, which is difficult to obtain given the
+                    rarity of threat objects. Unsupervised methods, on the other hand, often fail to differentiate
+                    between threat and nonthreat items due to the complex grayscale nature and high object overlap
+                    inherent in X-ray imagery. To overcome these limitations, we propose <strong
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-sky-700 to-blue-700 font-extrabold text-xl align-baseline">X-SSL</strong>,
+                    a novel self-supervised learning framework that eliminates manual annotations designed to perform
+                    threat localization. Our approach integrates <span
+                        class="inline-flex items-center rounded-md bg-sky-50 px-2 py-1 text-sm font-medium text-sky-800 ring-1 ring-inset ring-sky-700/10 whitespace-nowrap mx-0.5">MaskCut
+                        proposals</span>
+                    for zero-shot object proposal generation, <span
+                        class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-sm font-medium text-blue-800 ring-1 ring-inset ring-blue-700/10 whitespace-nowrap mx-0.5">contrastive
+                        multimodal clustering</span>
+                    that leverages both image and text encoders to cluster and label proposals into threat and
+                    nonthreat categories, and <span
+                        class="inline-flex items-center rounded-md bg-emerald-50 px-2 py-1 text-sm font-medium text-emerald-800 ring-1 ring-inset ring-emerald-700/10 whitespace-nowrap mx-0.5">teacher-student
+                        distillation</span>
+                    where a teacher-student model refines multiscale features from global and local image crops for
+                    improved representation learning. We evaluated X-SSL on two benchmark datasets: <span
+                        class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-sm font-medium text-purple-800 ring-1 ring-inset ring-purple-700/10 whitespace-nowrap mx-0.5">PIDray</span>
+                    and <span
+                        class="inline-flex items-center rounded-md bg-fuchsia-50 px-2 py-1 text-sm font-medium text-fuchsia-800 ring-1 ring-inset ring-fuchsia-700/10 whitespace-nowrap mx-0.5">CLCXray</span>,
+                    demonstrating significant improvements over previous state-of-the-art methods. In the hidden
+                    PIDray subset, X-SSL improves detection AP to <span
+                        class="inline-flex items-center rounded-md bg-amber-50 px-2 py-1 text-sm font-medium text-amber-800 ring-1 ring-inset ring-amber-700/10 whitespace-nowrap mx-0.5">18.16
+                        (+4.41 AP)</span>
+                    and segmentation AP to <span
+                        class="inline-flex items-center rounded-md bg-amber-50 px-2 py-1 text-sm font-medium text-amber-800 ring-1 ring-inset ring-amber-700/10 whitespace-nowrap mx-0.5">13.76
+                        (+1.01 AP)</span>
+                    over previous methods. On CLCXray, it achieves <span
+                        class="inline-flex items-center rounded-md bg-rose-50 px-2 py-1 text-sm font-medium text-rose-800 ring-1 ring-inset ring-rose-700/10 whitespace-nowrap mx-0.5">39.26
+                        detection AP (+5.93 AP)</span>
+                    and <span
+                        class="inline-flex items-center rounded-md bg-rose-50 px-2 py-1 text-sm font-medium text-rose-800 ring-1 ring-inset ring-rose-700/10 whitespace-nowrap mx-0.5">38.67
+                        segmentation AP (+10.20 AP)</span>,
+                    significantly surpassing previous approaches. For classification, X-SSL achieves an accuracy of
+                    <span
+                        class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-sm font-medium text-slate-800 ring-1 ring-inset ring-slate-700/10 whitespace-nowrap mx-0.5">43%
+                        on PIDray Hidden</span>
+                    and <span
+                        class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-sm font-medium text-slate-800 ring-1 ring-inset ring-slate-700/10 whitespace-nowrap mx-0.5">65%
+                        on CLCXray</span>,
+                    further highlighting its superior performance compared to existing weakly supervised and
+                    unsupervised methods.
+                </p>
+            </div>
+        </section>
+
+        <section id="method" class="mb-24">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="p-2 bg-blue-100 rounded-lg text-blue-700">
+                    <i data-lucide="workflow" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-950 tracking-tight">Method</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm">
+                    <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="boxes" class="w-6 h-6 text-sky-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-950 mb-3">Zero-shot proposals</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        MaskCut extracts candidate regions from unlabeled baggage scans, surfacing object-like regions
+                        without requiring bounding boxes or masks.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="message-square-text" class="w-6 h-6 text-blue-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-950 mb-3">Multi-modal clustering</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Image and text encoders align visual proposals with semantic threat cues, separating likely
+                        threats from benign clutter.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="network" class="w-6 h-6 text-emerald-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-950 mb-3">Knowledge distillation</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        A teacher-student setup refines global and local crop features, producing stronger
+                        pseudo-labels for downstream detection and segmentation.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <button type="button"
+                    class="group relative block w-full bg-slate-50 cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-sky-500"
+                    onclick="openLightbox('assets/Block.png', 'X-SSL block diagram')"
+                    aria-label="Open X-SSL block diagram">
+                    <img src="assets/Block.png" alt="X-SSL block diagram"
+                        class="w-full h-auto max-h-[680px] object-contain transition-transform duration-700 group-hover:scale-[1.01]">
+                    <span
+                        class="absolute right-4 top-4 bg-white/90 text-slate-900 rounded-full p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i data-lucide="zoom-in" class="w-5 h-5"></i>
+                    </span>
+                </button>
+                <p class="text-sm text-slate-600 leading-relaxed px-5 py-4 border-t border-slate-200">
+                    <strong>X-SSL pipeline.</strong> The method combines MaskCut-based spatial region extraction,
+                    contrastive image-text clustering, and self-supervised teacher-student distillation before training
+                    downstream detectors and segmenters.
+                </p>
+            </div>
+        </section>
+
+        <!-- <section id="results" class="mb-24">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="p-2 bg-purple-100 rounded-lg text-purple-700">
+                    <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-950 tracking-tight">Results</h2>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+                    <p class="text-sm font-semibold text-slate-500 mb-2">FreeSOLO + X-SSL</p>
+                    <p class="text-3xl font-extrabold text-sky-700">+10.95</p>
+                    <p class="text-slate-600 mt-2">AP gain on PIDray hard detection.</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+                    <p class="text-sm font-semibold text-slate-500 mb-2">CutLER + X-SSL</p>
+                    <p class="text-3xl font-extrabold text-blue-700">+19.60</p>
+                    <p class="text-slate-600 mt-2">AP50 gain on easy segmentation.</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+                    <p class="text-sm font-semibold text-slate-500 mb-2">ViTBase + X-SSL</p>
+                    <p class="text-3xl font-extrabold text-emerald-700">+17.44</p>
+                    <p class="text-slate-600 mt-2">AP50 gain on easy segmentation.</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+                    <p class="text-sm font-semibold text-slate-500 mb-2">CLCXray</p>
+                    <p class="text-3xl font-extrabold text-amber-700">+9.89</p>
+                    <p class="text-slate-600 mt-2">AP gain on instance segmentation.</p>
+                </div>
+            </div>
+        </section> -->
+
+        <section id="figures" class="mb-24">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="p-2 bg-rose-100 rounded-lg text-rose-700">
+                    <i data-lucide="images" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-950 tracking-tight">Qualitative Results</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-6 sm:p-8">
+                    <div class="flex items-center gap-3 mb-3">
+                        <h3 class="font-bold text-slate-950 text-xl">DINO vs X-SSL localization</h3>
+                    </div>
+                    <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+                        X-SSL suppresses background clutter and highlights threat-relevant regions more precisely than
+                        the baseline DINO representations across overlapping and transparent baggage contents.
+                    </p>
+                </div>
+                <button type="button"
+                    class="group relative block w-full bg-slate-50 cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-sky-500"
+                    onclick="openLightbox('assets/DINOXSSLComparison.png', 'DINO and X-SSL qualitative comparison')"
+                    aria-label="Open DINO and X-SSL qualitative comparison">
+                    <img src="assets/DINOXSSLComparison.png" alt="DINO and X-SSL qualitative comparison"
+                        class="w-full h-auto max-h-[680px] object-contain transition-transform duration-700 group-hover:scale-[1.01]">
+                    <span
+                        class="absolute right-4 top-4 bg-white/90 text-slate-900 rounded-full p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i data-lucide="zoom-in" class="w-5 h-5"></i>
+                    </span>
+                </button>
+                
+            </div>
+        </section>
+
+        <section id="benchmarks" class="mb-24">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="p-2 bg-cyan-100 rounded-lg text-cyan-700">
+                    <i data-lucide="table-2" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-950 tracking-tight">Benchmarks</h2>
+            </div>
+
+            <p class="text-slate-600 mb-8 text-lg leading-relaxed">
+                Metrics include AP and AP50 across PIDray difficulty splits and CLCXray. Det denotes object detection;
+                Seg denotes instance segmentation.
+            </p>
+
+            <div class="overflow-x-auto bg-white rounded-2xl shadow-sm border border-slate-200">
+                <table class="w-full min-w-[1300px] text-sm text-center text-slate-600">
+                    <thead class="text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th rowspan="3" class="font-bold border-r border-slate-200 align-middle text-left">Model</th>
+                            <th rowspan="3" class="font-bold border-r border-slate-200 align-middle text-left">Architecture</th>
+                            <th colspan="4" class="font-bold border-b border-r border-slate-200">Easy</th>
+                            <th colspan="4" class="font-bold border-b border-r border-slate-200">Hard</th>
+                            <th colspan="4" class="font-bold border-b border-r border-slate-200">Hidden</th>
+                            <th colspan="4" class="font-bold border-b">CLCXray</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="border-b border-r border-slate-100">Det</th>
+                            <th colspan="2" class="border-b border-r border-slate-200">Seg</th>
+                            <th colspan="2" class="border-b border-r border-slate-100">Det</th>
+                            <th colspan="2" class="border-b border-r border-slate-200">Seg</th>
+                            <th colspan="2" class="border-b border-r border-slate-100">Det</th>
+                            <th colspan="2" class="border-b border-r border-slate-200">Seg</th>
+                            <th colspan="2" class="border-b border-r border-slate-100">Det</th>
+                            <th colspan="2" class="border-b">Seg</th>
+                        </tr>
+                        <tr>
+                            <th>AP</th><th class="border-r border-slate-100">AP50</th><th>AP</th><th class="border-r border-slate-200">AP50</th>
+                            <th>AP</th><th class="border-r border-slate-100">AP50</th><th>AP</th><th class="border-r border-slate-200">AP50</th>
+                            <th>AP</th><th class="border-r border-slate-100">AP50</th><th>AP</th><th class="border-r border-slate-200">AP50</th>
+                            <th>AP</th><th class="border-r border-slate-100">AP50</th><th>AP</th><th>AP50</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="text-left font-semibold text-slate-950 border-r border-slate-100">FreeSOLO</td><td class="text-left border-r border-slate-100">ResNet</td>
+                            <td>51.17</td><td>67.39</td><td>36.52</td><td class="border-r border-slate-200">65.79</td>
+                            <td>37.94</td><td>63.78</td><td>25.97</td><td class="border-r border-slate-200">56.55</td>
+                            <td>29.62</td><td>43.34</td><td>18.90</td><td class="border-r border-slate-200">40.36</td>
+                            <td>--</td><td>--</td><td>--</td><td>--</td>
+                        </tr>
+                        <tr class="border-b border-sky-100 bg-sky-50/60 hover:bg-sky-50">
+                            <td class="text-left font-bold text-sky-950 border-r border-sky-100">FreeSOLO + X-SSL</td><td class="text-left border-r border-sky-100">ResNet</td>
+                            <td class="font-bold">61.03</td><td class="font-bold">76.77</td><td class="font-bold">45.53</td><td class="font-bold border-r border-sky-200">75.60</td>
+                            <td class="font-bold">48.89</td><td class="font-bold">73.13</td><td class="font-bold">34.42</td><td class="font-bold border-r border-sky-200">67.95</td>
+                            <td class="font-bold">35.23</td><td class="font-bold">51.55</td><td class="font-bold">21.09</td><td class="font-bold border-r border-sky-200">46.26</td>
+                            <td>--</td><td>--</td><td>--</td><td>--</td>
+                        </tr>
+                        <tr class="border-b border-slate-100 bg-slate-50">
+                            <td class="text-left font-semibold text-slate-950 border-r border-slate-100">Improvement</td><td class="text-left border-r border-slate-100">--</td>
+                            <td>+9.86</td><td>+9.38</td><td>+9.01</td><td class="border-r border-slate-200">+9.81</td>
+                            <td>+10.95</td><td>+9.35</td><td>+8.45</td><td class="border-r border-slate-200">+11.40</td>
+                            <td>+5.61</td><td>+8.21</td><td>+2.19</td><td class="border-r border-slate-200">+5.90</td>
+                            <td>--</td><td>--</td><td>--</td><td>--</td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="text-left font-semibold text-slate-950 border-r border-slate-100">LOST</td><td class="text-left border-r border-slate-100">ViTSmall</td>
+                            <td>25.66</td><td class="font-bold">61.79</td><td>--</td><td class="border-r border-slate-200">--</td>
+                            <td>14.88</td><td>47.34</td><td>--</td><td class="border-r border-slate-200">--</td>
+                            <td>7.38</td><td>21.01</td><td>--</td><td class="border-r border-slate-200">--</td>
+                            <td>33.32</td><td class="font-bold">64.23</td><td>--</td><td>--</td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="text-left font-semibold text-slate-950 border-r border-slate-100">CutLER pretrained</td><td class="text-left border-r border-slate-100">ViTSmall</td>
+                            <td>20.98</td><td>31.79</td><td>16.45</td><td class="border-r border-slate-200">30.11</td>
+                            <td>17.80</td><td>29.22</td><td>13.58</td><td class="border-r border-slate-200">24.55</td>
+                            <td>16.88</td><td>24.47</td><td>12.35</td><td class="border-r border-slate-200">21.97</td>
+                            <td>27.74</td><td>40.08</td><td>26.33</td><td>39.73</td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="text-left font-semibold text-slate-950 border-r border-slate-100">CutLER + finetuned DINO</td><td class="text-left border-r border-slate-100">ViTSmall</td>
+                            <td>20.60</td><td>32.95</td><td>16.47</td><td class="border-r border-slate-200">30.13</td>
+                            <td>24.91</td><td>40.15</td><td>16.80</td><td class="border-r border-slate-200">32.83</td>
+                            <td>6.63</td><td>13.74</td><td>5.19</td><td class="border-r border-slate-200">12.50</td>
+                            <td>29.44</td><td>46.68</td><td>28.47</td><td>46.65</td>
+                        </tr>
+                        <tr class="border-b border-blue-100 bg-blue-50/60 hover:bg-blue-50">
+                            <td class="text-left font-bold text-blue-950 border-r border-blue-100">CutLER + X-SSL</td><td class="text-left border-r border-blue-100">ViTSmall</td>
+                            <td class="font-bold">33.41</td><td>51.15</td><td class="font-bold">30.55</td><td class="font-bold border-r border-blue-200">49.73</td>
+                            <td class="font-bold">29.49</td><td class="font-bold">49.27</td><td class="font-bold">22.02</td><td class="font-bold border-r border-blue-200">42.60</td>
+                            <td class="font-bold">17.18</td><td class="font-bold">27.79</td><td class="font-bold">12.77</td><td class="font-bold border-r border-blue-200">25.25</td>
+                            <td class="font-bold">38.97</td><td>55.13</td><td class="font-bold">38.36</td><td class="font-bold">55.17</td>
+                        </tr>
+                        <tr class="border-b border-slate-100 bg-slate-50">
+                            <td class="text-left font-semibold text-slate-950 border-r border-slate-100">Improvement</td><td class="text-left border-r border-slate-100">--</td>
+                            <td>+7.75</td><td>-10.64</td><td>+14.08</td><td class="border-r border-slate-200">+19.60</td>
+                            <td>+4.58</td><td>+1.93</td><td>+5.22</td><td class="border-r border-slate-200">+9.77</td>
+                            <td>+0.30</td><td>+3.32</td><td>+0.42</td><td class="border-r border-slate-200">+3.28</td>
+                            <td>+5.65</td><td>-9.10</td><td>+9.89</td><td>+8.52</td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="text-left font-semibold text-slate-950 border-r border-slate-100">CutLER + finetuned DINO</td><td class="text-left border-r border-slate-100">ViTBase</td>
+                            <td>21.88</td><td>34.77</td><td>17.15</td><td class="border-r border-slate-200">31.31</td>
+                            <td>26.56</td><td>42.33</td><td>18.53</td><td class="border-r border-slate-200">34.98</td>
+                            <td>6.33</td><td>13.11</td><td>4.90</td><td class="border-r border-slate-200">12.10</td>
+                            <td>28.15</td><td>45.38</td><td>26.33</td><td>45.45</td>
+                        </tr>
+                        <tr class="border-b border-emerald-100 bg-emerald-50/60 hover:bg-emerald-50">
+                            <td class="text-left font-bold text-emerald-950 border-r border-emerald-100">CutLER + X-SSL</td><td class="text-left border-r border-emerald-100">ViTBase</td>
+                            <td class="font-bold">33.24</td><td class="font-bold">52.18</td><td class="font-bold">28.08</td><td class="font-bold border-r border-emerald-200">48.75</td>
+                            <td class="font-bold">27.31</td><td class="font-bold">48.14</td><td class="font-bold">21.61</td><td class="font-bold border-r border-emerald-200">41.20</td>
+                            <td class="font-bold">17.64</td><td class="font-bold">29.80</td><td class="font-bold">12.82</td><td class="font-bold border-r border-emerald-200">26.86</td>
+                            <td class="font-bold">36.33</td><td class="font-bold">53.16</td><td class="font-bold">35.96</td><td class="font-bold">53.10</td>
+                        </tr>
+                        <tr class="bg-slate-50">
+                            <td class="text-left font-semibold text-slate-950 border-r border-slate-100">Improvement</td><td class="text-left border-r border-slate-100">--</td>
+                            <td>+11.36</td><td>+17.41</td><td>+10.93</td><td class="border-r border-slate-200">+17.44</td>
+                            <td>+0.75</td><td>+5.81</td><td>+3.08</td><td class="border-r border-slate-200">+6.22</td>
+                            <td>+11.31</td><td>+16.69</td><td>+7.92</td><td class="border-r border-slate-200">+14.76</td>
+                            <td>+8.18</td><td>+7.78</td><td>+9.63</td><td>+7.65</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="citation" class="mb-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="p-2 bg-slate-200 rounded-lg text-slate-700">
+                    <i data-lucide="quote" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-950 tracking-tight">Citation</h2>
+            </div>
+            <div class="relative group">
+                <button onclick="copyBibtex()" type="button"
+                    class="absolute top-4 right-4 p-2.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-sky-700 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-700"
+                    title="Copy to clipboard" aria-label="Copy BibTeX">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                </button>
+                <pre class="code-block p-6 rounded-2xl overflow-x-auto text-sm leading-relaxed border border-slate-800 shadow-2xl"
+                    id="bibtex">@article{michael2026xssl,
+    title={X-SSL: Self-supervised X-ray threat detection with zero-shot and multi-modal learning},
+    author={Michael, Yonathan and Alansari, Mohamad and Ahmed, Abdelfatah and Werghi, Naoufel and Henschel, Andreas},
+    journal={Information Processing \& Management},
+    volume={63},
+    number={1},
+    pages={104339},
+    year={2026},
+    issn={0306-4573},
+    doi={10.1016/j.ipm.2025.104339},
+    url={https://www.sciencedirect.com/science/article/pii/S0306457325002808}
+}</pre>
+            </div>
+            <div id="copy-toast" class="hidden text-emerald-700 text-sm font-semibold mt-3 items-center">
+                <i data-lucide="check-circle-2" class="w-4 h-4 mr-1"></i> Copied to clipboard.
+            </div>
+        </section>
+
+        <section id="contact" class="pb-12">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-7">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 bg-sky-100 rounded-lg text-sky-700">
+                        <i data-lucide="mail" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-950 tracking-tight">Contact</h2>
+                </div>
+                <p class="text-slate-600 leading-relaxed">
+                    For inquires, reach out at
+                    <a class="font-semibold text-sky-700 hover:text-sky-900" href="mailto:100053679@ku.ac.ae">
+                        100053679@ku.ac.ae
+                    </a>.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white py-8">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500">
+            <div class="flex items-center justify-center gap-3 mb-3">
+                <img src="assets/lab-logo.jpg" alt="CVML-KU logo"
+                    class="h-8 w-8 rounded-full border border-slate-200 object-cover">
+                <span class="font-semibold text-slate-700">CVML-KU</span>
+            </div>
+            <p>&copy; 2026 CVML-KU lab, Khalifa University. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="lightbox"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-sm opacity-0 invisible p-4">
+        <button onclick="closeLightbox()"
+            class="absolute top-6 right-6 text-white/80 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+            aria-label="Close lightbox">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <div class="max-w-7xl w-full max-h-[90vh] flex flex-col items-center">
+            <img id="lightbox-img" src="" alt="Expanded figure"
+                class="max-w-full max-h-[82vh] object-contain rounded-lg shadow-2xl transform scale-95">
+            <p id="lightbox-caption" class="text-slate-300 mt-5 text-lg font-medium text-center"></p>
+        </div>
+    </div>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+
+        function openLightbox(src, alt) {
+            lightboxImg.src = src;
+            lightboxImg.alt = alt || 'Expanded figure';
+            lightboxCaption.textContent = alt || '';
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                if (!lightbox.classList.contains('open')) {
+                    lightboxImg.src = '';
+                }
+            }, 300);
+        }
+
+        lightbox.addEventListener('click', function (event) {
+            if (event.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && lightbox.classList.contains('open')) {
+                closeLightbox();
+            }
+        });
+
+        function copyBibtex() {
+            const bibtex = document.getElementById('bibtex').innerText;
+            const toast = document.getElementById('copy-toast');
+
+            function showToast() {
+                toast.classList.remove('hidden');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                    toast.classList.remove('show');
+                }, 2200);
+            }
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(bibtex).then(showToast);
+                return;
+            }
+
+            const textArea = document.createElement('textarea');
+            textArea.value = bibtex;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showToast();
+        }
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+
+</html>
