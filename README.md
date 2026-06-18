@@ -3,7 +3,11 @@
 
 ![alt text](https://github.com/yonathan-kiflom/X-SSL/blob/main/assets/Architecture.png)
 
-[![Paper](https://img.shields.io/badge/Paper-Elsevier-orange.svg)](https://www.sciencedirect.com/science/article/pii/S0306457325002808)
+<p align="center">
+  <a href="https://www.sciencedirect.com/science/article/pii/S0306457325002808">📄 Paper</a>
+  &nbsp;|&nbsp;
+  <a href="https://yonathan-kiflom.github.io/X-SSL/page/">🌐 Project Page</a>
+</p>
 
 **X-SSL** is a self-supervised framework that learns from unlabeled X-ray scans to localize threats, combining zero-shot region proposals, multi-modal clustering, and knowledge distillation.
 
